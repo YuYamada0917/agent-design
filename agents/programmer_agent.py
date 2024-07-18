@@ -1,7 +1,7 @@
 import anthropic
 import config
 
-class Agent2:
+class ProgrammerAgent:
     def __init__(self):
         self.client = anthropic.Anthropic(api_key=config.ANTHROPIC_API_KEY)
         self.modification_count = 0

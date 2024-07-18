@@ -3,7 +3,7 @@ import config
 import json
 import re
 
-class Agent3:
+class ReviewerAgent:
     def __init__(self):
         self.client = anthropic.Anthropic(api_key=config.ANTHROPIC_API_KEY)
 

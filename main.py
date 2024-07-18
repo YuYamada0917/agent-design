@@ -1,6 +1,6 @@
-from agents.agent1 import Agent1
-from agents.agent2 import Agent2
-from agents.agent3 import Agent3
+from agents.consultant_agent import ConsultantAgent
+from agents.programmer_agent import ProgrammerAgent
+from agents.reviewer_agent import ReviewerAgent
 from utils.file_handler import create_version_directory, save_design_version
 import config
 
@@ -13,18 +13,18 @@ def extract_text_content(content):
         raise ValueError("Unexpected content format")
 
 def main():
-    agent1 = Agent1()
-    agent2 = Agent2()
-    agent3 = Agent3()
+    consultant = ConsultantAgent()
+    programmer = ProgrammerAgent()
+    reviewer = ReviewerAgent()
 
     version_dir = create_version_directory()
-    agent2.set_version_dir(version_dir)
+    programmer.set_version_dir(version_dir)
 
-    prompt = agent1.generate_prompt()
+    prompt = consultant.generate_prompt()
     prompt = extract_text_content(prompt)
-    agent1.display_generated_prompt(prompt)
+    consultant.display_generated_prompt(prompt)
 
-    design = agent2.generate_design(prompt)
+    design = programmer.generate_design(prompt) 
     design = extract_text_content(design)
     version = 0
 
@@ -40,8 +40,8 @@ def main():
         print(f"URL: {url}")
         
         try:
-            total_score, feedback = agent3.evaluate_design(design)
-            print(f"\nエージェント3の評価とフィードバック:")
+            total_score, feedback = reviewer.evaluate_design(design)
+            print(f"\nレビュアーの評価とフィードバック:")
             print(f"合計点数: {total_score}/50")
             print(feedback)
 
@@ -54,7 +54,7 @@ def main():
             total_score = 0
             feedback = "評価に失敗しました。デザインの改善を続けます。"
 
-        design = agent2.modify_design(design, feedback)
+        design = programmer.modify_design(design, feedback)
         design = extract_text_content(design)
 
     print("各バージョンのデザインは以下のURLで確認できます：")
