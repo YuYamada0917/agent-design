@@ -1,6 +1,7 @@
 import anthropic
 import config
 
+
 class ProgrammerAgent:
     def __init__(self):
         self.client = anthropic.Anthropic(api_key=config.ANTHROPIC_API_KEY)
@@ -14,8 +15,11 @@ class ProgrammerAgent:
         message = self.client.messages.create(
             model=config.CLAUDE_MODEL,
             max_tokens=4000,
+            system="あなたは経験豊富なWebプログラマーです。与えられた要件に基づいてプログラムを作成してください",
             messages=[
-                {"role": "user", "content": f"""以下のプロンプトに基づいて、HTML、CSS、JavaScriptを含む完全なWebデザインを生成してください。
+                {
+                    "role": "user",
+                    "content": f"""以下のプロンプトに基づいて、HTML、CSS、JavaScriptを含む完全なWebデザインを生成してください。
                 HTMLファイルの中にインラインでCSSとJavaScriptを含めてください。
                 必ず<!DOCTYPE html>から始まる完全なHTMLドキュメントを生成してください。
                 HTMLドキュメント以外は出力しないでください。
@@ -25,9 +29,9 @@ class ProgrammerAgent:
                 プロンプト：
                 {prompt}
 
-                生成されたデザインは、ブラウザで直接開いて表示できる形式にしてください。"""
+                生成されたデザインは、ブラウザで直接開いて表示できる形式にしてください。""",
                 }
-            ]
+            ],
         )
         return message.content
 
@@ -39,14 +43,17 @@ class ProgrammerAgent:
         message = self.client.messages.create(
             model=config.CLAUDE_MODEL,
             max_tokens=4000,
+            system="あなたは経験豊富なWebプログラマーです。他のエージェントのフィードバックに基づいてプログラムをより良いものに修正してください",
             messages=[
-                {"role": "user", "content": f"""以下のWebデザイン（HTML、CSS、JavaScript）を、次のフィードバックに基づいて修正してください。HTMLドキュメント以外は絶対に出力しないでください。
+                {
+                    "role": "user",
+                    "content": f"""以下のWebデザイン（HTML、CSS、JavaScript）を、次のフィードバックに基づいて修正してください。HTMLドキュメント以外は絶対に出力しないでください。
 
                 重要な注意点:
                 1. CSSとJavaScriptは必ずインラインのままにしてください。
                 2. レスポンシブデザインを維持し、モバイル対応を忘れないでください。
                 3. 機能性を損なわないように注意しながら、視覚的な改善を行ってください。
-                4. フィードバックに基づいて修正を行いますが、元のデザインの良い部分は保持してください。
+                4. 元の良い部分は保持しつつ、フィードバックに沿って修正してください。
                 5. 完全なHTMLドキュメントを提供してください。ブラウザで直接開いて表示できる形式にしてください。
                 6. 大幅にデザインを変えるのを恐れないでください。改善のために必要な変更を行ってください。
                 7.十分な量のコンテンツがあることを確認し、必要に応じて追加してください。
@@ -59,8 +66,8 @@ class ProgrammerAgent:
                 フィードバック：
                 {feedback}
 
-                修正後のデザインを完全なHTML形式（<!DOCTYPE html>から始まる）で提供してください。"""
+                修正後のデザインを完全なHTML形式（<!DOCTYPE html>から始まる）で提供してください。""",
                 }
-            ]
+            ],
         )
         return message.content
