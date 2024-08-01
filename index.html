@@ -61,23 +61,23 @@
         <div class="design">
             <div class="design-header">
                 <h2>デザイン 1</h2>
-                <button class="fullscreen-btn" onclick="openNewPage('index1.html')">全画面で開く</button>
+                <button class="fullscreen-btn" onclick="openNewPage('generate_html/index1.html')">全画面で開く</button>
             </div>
-            <iframe src="index1.html" id="iframe1"></iframe>
+            <iframe src="generate_html/index1.html" id="iframe1"></iframe>
         </div>
         <div class="design">
             <div class="design-header">
                 <h2>デザイン 2</h2>
-                <button class="fullscreen-btn" onclick="openNewPage('index2.html')">全画面で開く</button>
+                <button class="fullscreen-btn" onclick="openNewPage('generate_html/index2.html')">全画面で開く</button>
             </div>
-            <iframe src="index2.html" id="iframe2"></iframe>
+            <iframe src="generate_html/index2.html" id="iframe2"></iframe>
         </div>
         <div class="design">
             <div class="design-header">
                 <h2>デザイン 3</h2>
-                <button class="fullscreen-btn" onclick="openNewPage('index3.html')">全画面で開く</button>
+                <button class="fullscreen-btn" onclick="openNewPage('generate_html/index3.html')">全画面で開く</button>
             </div>
-            <iframe src="index3.html" id="iframe3"></iframe>
+            <iframe src="generate_html/index3.html" id="iframe3"></iframe>
         </div>
     </div>
     <div class="navigation">
@@ -103,9 +103,9 @@
         function updateIframes() {
             for (let i = 1; i <= totalPages; i++) {
                 const iframe = document.getElementById(`iframe${i}`);
-                iframe.src = `index${currentPage}.html`;
+                iframe.src = `generate_html/index${currentPage}.html`;
                 const button = iframe.previousElementSibling.querySelector('.fullscreen-btn');
-                button.onclick = function() { openNewPage(`index${currentPage}.html`); };
+                button.onclick = function() { openNewPage(`generate_html/index${currentPage}.html`); };
             }
         }
     </script>
