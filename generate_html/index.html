@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>生成されたデザインの比較</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+        .design {
+            width: 30%;
+            margin-bottom: 20px;
+        }
+        .design-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        iframe {
+            width: 100%;
+            height: 600px;
+            border: 1px solid #ccc;
+        }
+        .fullscreen-btn {
+            padding: 10px 15px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .fullscreen-btn:hover {
+            background-color: #e0e0e0;
+        }
+        .navigation {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .nav-btn {
+            margin: 0 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>生成されたデザインの比較</h1>
+    <div class="container">
+        <div class="design">
+            <div class="design-header">
+                <h2>デザイン 1</h2>
+                <button class="fullscreen-btn" onclick="openNewPage('index1.html')">全画面で開く</button>
+            </div>
+            <iframe src="index1.html" id="iframe1"></iframe>
+        </div>
+        <div class="design">
+            <div class="design-header">
+                <h2>デザイン 2</h2>
+                <button class="fullscreen-btn" onclick="openNewPage('index2.html')">全画面で開く</button>
+            </div>
+            <iframe src="index2.html" id="iframe2"></iframe>
+        </div>
+        <div class="design">
+            <div class="design-header">
+                <h2>デザイン 3</h2>
+                <button class="fullscreen-btn" onclick="openNewPage('index3.html')">全画面で開く</button>
+            </div>
+            <iframe src="index3.html" id="iframe3"></iframe>
+        </div>
+    </div>
+    <div class="navigation">
+        <button class="nav-btn" onclick="changePage(-1)">前のページ</button>
+        <button class="nav-btn" onclick="changePage(1)">次のページ</button>
+    </div>
+
+    <script>
+        let currentPage = 1;
+        const totalPages = 3;
+
+        function openNewPage(url) {
+            window.location.href = url;
+        }
+
+        function changePage(direction) {
+            currentPage += direction;
+            if (currentPage < 1) currentPage = totalPages;
+            if (currentPage > totalPages) currentPage = 1;
+            updateIframes();
+        }
+
+        function updateIframes() {
+            for (let i = 1; i <= totalPages; i++) {
+                const iframe = document.getElementById(`iframe${i}`);
+                iframe.src = `index${currentPage}.html`;
+                const button = iframe.previousElementSibling.querySelector('.fullscreen-btn');
+                button.onclick = function() { openNewPage(`index${currentPage}.html`); };
+            }
+        }
+    </script>
+</body>
+</html>
